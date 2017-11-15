@@ -11,6 +11,7 @@
 
 # bugs
 /public/bugs
+/public/thumbs
 
 # misc
 .DS_Store

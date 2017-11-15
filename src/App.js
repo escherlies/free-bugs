@@ -7,7 +7,12 @@ import Ground from './components/Ground'
 
 class App extends Component {
 
-  state = { width: 0, height: 0 };
+  state = {
+    dim: {
+      width: 0,
+      height: 0
+    }
+  };
 
   componentDidMount() {
     this.updateWindowDimensions();
@@ -19,15 +24,17 @@ class App extends Component {
   }
 
   updateWindowDimensions = () => {
-    this.setState({ width: window.innerWidth, height: window.innerHeight });
+    this.setState({ dim: { width: window.innerWidth, height: window.innerHeight } });
   }
 
   render() {
     return (
       <div className="App">
         <Nav />
+        <button>Show Dev Tools</button>
+
         {
-          this.state.width !== 0 ? <Ground dim={this.state} /> : 'Loading'
+          this.state.dim.width !== 0 ? <Ground dim={this.state.dim} /> : 'Loading'
         }
       </div>
     );
