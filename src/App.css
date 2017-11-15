@@ -1,14 +1,24 @@
+@import url('https://fonts.googleapis.com/css?family=Karla|Libre+Baskerville');
+@import url('https://fonts.googleapis.com/css?family=Karla');
 h3 {
   font-family: 'Libre Baskerville', serif;
+}
+
+.bug-description {
+  font-family: 'Karla', sans-serif;
+}
+
+body {
+  overflow: hidden;
+  background: #fffdf2;
 }
 
 .App {
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
   background-image: url('./assets/bg_pattern.png');
   background-repeat: repeat;
-  background-size: 450px;
+  background-size: 300px;
 }
 
 .ground {
@@ -18,7 +28,7 @@ h3 {
 
 .bug {
   position: absolute;
-  background: #080;
+  /* background: #080; */
   left: 0px;
   top: 0px;
   transform-origin: 50% 50%;

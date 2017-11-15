@@ -89,13 +89,14 @@ class Bug extends Component {
 
     // handle direktino 
     const rotationInterval = 30
-    const rotationMax = 30
+    const rotationMax = 20
 
     let rotate = this.state.rotate
     let rotateNext = this.state.rotateNext
 
     rotate += rotateNext
 
+    // TODO: changing directions smoother
     if (this.frame % rotationInterval === 0) rotateNext = (Math.random() * 2 - 1) * rotationMax / rotationInterval
 
     // keep bugs in frame
