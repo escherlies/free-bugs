@@ -5,20 +5,12 @@ class Ground extends Component {
 
   state = {
     scalingFactor: 0.1,
-    width: 100,
-    height: 100,
   }
 
-  componentDidMount() {
-    this.setState({
-      width: this.ground.clientWidth,
-      height: this.ground.clientHeight
-    })
-  }
-
+  
   render() {
-
-
+    console.log(this.props)
+    
     return (
       <div className="ground" ref={e => this.ground = e}>
         <Bug
@@ -26,8 +18,8 @@ class Ground extends Component {
           info={{ name: "macrocephalus" }}
           scalingFactor={this.state.scalingFactor}
           parent={{
-            width: this.state.width,
-            height: this.state.height
+            width: this.props.dim.width,
+            height: this.props.dim.height
           }}
         />
       </div>

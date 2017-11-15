@@ -6,18 +6,20 @@ h3 {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-}
-
-.ground {
-  width: 100%;
-  height: 100%;
-  background: green;
   background-image: url('./assets/bg_pattern.png');
   background-repeat: repeat;
   background-size: 450px;
 }
 
+.ground {
+  width: 100%;
+  height: 100%;
+}
+
 .bug {
   position: absolute;
   background: #080;
+  left: 0px;
+  top: 0px;
+  transform-origin: 50% 50%;
 }
