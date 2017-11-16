@@ -8,12 +8,13 @@ class Bug extends Component {
       y: 0
     },
     translate: {
-      x: 300,
-      y: 300,
+      x: 0,
+      y: 0,
     },
     rotate: Math.random()*360,
     rotateNext: 0.5,
     timestamp: 0,
+    boundary: 100,
   }
 
   componentWillMount() {
@@ -56,7 +57,8 @@ class Bug extends Component {
         offset: {
           x: bug.clientWidth / 2,
           y: bug.clientHeight / 2
-        }
+        },
+        boundary: bug.clientHeight > bug.clientWidth ? bug.clientHeight * this.props.scalingFactor : bug.clientWidth * this.props.scalingFactor
       })
     }, 2000)
   }
@@ -65,21 +67,23 @@ class Bug extends Component {
 
   animate = (t, frame) => {
  
-    const boundary = 100
-
-    const offset = { ...this.state.offset }
-
+    let {offset,
+      boundary,
+      timestamp,
+      rotate,
+      rotateNext,
+      translate} = { ...this.state }
+        
     // velocity [pixel per second]
-    const v = 100 / 1000 * (t - this.state.timestamp)
+    const v = 100 / 1000 * (t - timestamp)
 
     /**
      * Calc vectors and update position
      */
-    const angle = this.state.rotate / 180 * Math.PI
+    const angle = rotate / 180 * Math.PI
     const vy = v * Math.sin(angle)
     const vx = v * Math.cos(angle)
 
-    let translate = { ... this.state.translate }
     translate.x += vx
     translate.y += vy
     const actualPosition = {
@@ -91,19 +95,16 @@ class Bug extends Component {
     const rotationInterval = 30
     const rotationMax = 20
 
-    let rotate = this.state.rotate
-    let rotateNext = this.state.rotateNext
-
     rotate += rotateNext
 
     // TODO: changing directions smoother
     if (frame % rotationInterval === 0) rotateNext = (Math.random() * 2 - 1) * rotationMax / rotationInterval
 
     // keep bugs in frame
-    if (actualPosition.x > this.props.parent.width + boundary && vx > 0) translate.x -= (this.props.parent.width + 2 * boundary)
-    else if (actualPosition.x < -boundary && vx < 0) translate.x += (this.props.parent.width + 2 * boundary)
-    if (actualPosition.y > this.props.parent.height + boundary && vy > 0) translate.y -= (this.props.parent.height + 2 * boundary)
-    else if (actualPosition.y < -boundary && vy < 0) translate.y += (this.props.parent.height + 2 * boundary)
+    if (actualPosition.x > this.props.parent.width + boundary && vx > 0) translate.x = - boundary - offset.x
+    else if (actualPosition.x < -boundary && vx < 0) translate.x =  this.props.parent.width + boundary - offset.x
+    if (actualPosition.y > this.props.parent.height + boundary && vy > 0) translate.y = - boundary - offset.y
+    else if (actualPosition.y < -boundary && vy < 0) translate.y = this.props.parent.height + boundary - offset.y
 
     // update state
     this.setState({

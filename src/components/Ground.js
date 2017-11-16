@@ -6,7 +6,7 @@ import { bugs } from '../bugs'
 class Ground extends Component {
 
   state = {
-    scalingFactor: 0.1,
+    scalingFactor: 0.08,
     selected: [],
     frame: 0
   }
@@ -14,7 +14,7 @@ class Ground extends Component {
   componentDidMount() {
     const N = 1 + Math.floor(Math.random() * 8)
     this.setState({
-      selected: _.sampleSize(bugs, 8 )
+      selected: _.sampleSize(bugs, 42 )
     })
 
     requestAnimationFrame(this.animate)
