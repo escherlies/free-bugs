@@ -11,10 +11,11 @@ class Bug extends Component {
       x: 0,
       y: 0,
     },
-    rotate: Math.random()*360,
+    rotate: Math.random() * 360,
     rotateNext: 0.5,
     timestamp: 0,
     boundary: 100,
+    showInfo: false,
   }
 
   componentWillMount() {
@@ -41,10 +42,11 @@ class Bug extends Component {
       translate: {
         x: translate.x - deltaW,
         y: translate.y - deltaH,
-      }
+      },
+      timestamp: nextProps.t
     })
 
-    this.animate(nextProps.t, nextProps.frame)
+    !this.state.showInfo && this.animate(nextProps.t, nextProps.frame)
   }
 
 
@@ -66,14 +68,14 @@ class Bug extends Component {
 
 
   animate = (t, frame) => {
- 
-    let {offset,
+
+    let { offset,
       boundary,
       timestamp,
       rotate,
       rotateNext,
-      translate} = { ...this.state }
-        
+      translate } = { ...this.state }
+
     // velocity [pixel per second]
     const v = 100 / 1000 * (t - timestamp)
 
@@ -102,17 +104,20 @@ class Bug extends Component {
 
     // keep bugs in frame
     if (actualPosition.x > this.props.parent.width + boundary && vx > 0) translate.x = - boundary - offset.x
-    else if (actualPosition.x < -boundary && vx < 0) translate.x =  this.props.parent.width + boundary - offset.x
+    else if (actualPosition.x < -boundary && vx < 0) translate.x = this.props.parent.width + boundary - offset.x
     if (actualPosition.y > this.props.parent.height + boundary && vy > 0) translate.y = - boundary - offset.y
     else if (actualPosition.y < -boundary && vy < 0) translate.y = this.props.parent.height + boundary - offset.y
 
     // update state
     this.setState({
       translate,
-      timestamp: t,
       rotate,
       rotateNext
     })
+  }
+
+  showInfo = (showInfo) => {
+    this.setState({ showInfo })
   }
 
   render() {
@@ -126,40 +131,60 @@ class Bug extends Component {
     const transform = `translate(${tx}px, ${ty}px) rotate(${ro + 90}deg) scale(${sf})`
 
     return (
-      <div key={this.props.index}>
-        <div ref={elem => this.bug = elem} className="bug" style={{ transform }}>
+      <div>
+        <div
+          ref={elem => this.bug = elem}
+          className="bug"
+          style={{ transform }}
+          onMouseDown={() => this.showInfo(true)}
+          onMouseUp={() => this.showInfo(false)}
+          onMouseLeave={() => this.showInfo(false)}
+          onTouchStart={() => this.showInfo(true)}
+          onTouchEnd={() => this.showInfo(false)}
+        >
           <img
             src={process.env.PUBLIC_URL + '/bugs/' + this.props.fileName}
             alt={this.props.info.name}
           />
         </div>
         {
-          false &&
-        <div style={{
-          position: "absolute",
-          left: "0",
-          right: "0",
-          width: tx + offset.x,
-          height: ty + offset.y,
-          border: '1px solid #000'
-        }}>
+          this.state.showInfo &&
           <div style={{
             position: "absolute",
-            left: 0,
+            left: this.state.boundary/2,
             right: 0,
             transform: `translate(${tx + this.state.offset.x}px, ${ty + this.state.offset.y - 30}px)`
           }}>
-            {Math.floor(tx + this.state.offset.x)}
-          </div>
+            NAME
+        </div>
+        }
+        {
+          false &&
           <div style={{
             position: "absolute",
-            left: 0,
-            right: 0,
-            transform: `translate(${tx + this.state.offset.x - 50}px, ${ty + this.state.offset.y}px)`
+            left: "0",
+            right: "0",
+            width: tx + offset.x,
+            height: ty + offset.y,
+            border: '1px solid #000'
           }}>
-            {Math.floor(ty + this.state.offset.y)}
+            <div style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              transform: `translate(${tx + this.state.offset.x}px, ${ty + this.state.offset.y - 30}px)`
+            }}>
+              {Math.floor(tx + this.state.offset.x)}
+            </div>
+            <div style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              transform: `translate(${tx + this.state.offset.x - 50}px, ${ty + this.state.offset.y}px)`
+            }}>
+              {Math.floor(ty + this.state.offset.y)}
+            </div>
           </div>
-        </div>
         }
       </div>
     );

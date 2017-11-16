@@ -32,4 +32,5 @@ body {
   left: 0px;
   top: 0px;
   transform-origin: 50% 50%;
+  cursor: pointer;
 }
