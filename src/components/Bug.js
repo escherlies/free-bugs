@@ -11,7 +11,7 @@ class Bug extends Component {
       x: 300,
       y: 300,
     },
-    rotate: 0,
+    rotate: Math.random()*360,
     rotateNext: 0.5,
     timestamp: 0,
   }
@@ -42,9 +42,10 @@ class Bug extends Component {
         y: translate.y - deltaH,
       }
     })
+
+    this.animate(nextProps.t, nextProps.frame)
   }
 
-  frame = 0
 
   setOffset = () => {
 
@@ -57,14 +58,13 @@ class Bug extends Component {
           y: bug.clientHeight / 2
         }
       })
-      this.frame = requestAnimationFrame(this.animate)
     }, 2000)
   }
 
 
 
-  animate = (t) => {
-
+  animate = (t, frame) => {
+ 
     const boundary = 100
 
     const offset = { ...this.state.offset }
@@ -97,7 +97,7 @@ class Bug extends Component {
     rotate += rotateNext
 
     // TODO: changing directions smoother
-    if (this.frame % rotationInterval === 0) rotateNext = (Math.random() * 2 - 1) * rotationMax / rotationInterval
+    if (frame % rotationInterval === 0) rotateNext = (Math.random() * 2 - 1) * rotationMax / rotationInterval
 
     // keep bugs in frame
     if (actualPosition.x > this.props.parent.width + boundary && vx > 0) translate.x -= (this.props.parent.width + 2 * boundary)
@@ -112,17 +112,15 @@ class Bug extends Component {
       rotate,
       rotateNext
     })
-
-    this.frame = requestAnimationFrame(this.animate)
   }
 
   render() {
 
-    let sf = this.props.scalingFactor
-    let tx = this.state.translate.x
-    let ty = this.state.translate.y
-    let ro = this.state.rotate
-    let offset = this.state.offset
+    const sf = this.props.scalingFactor
+    const tx = this.state.translate.x
+    const ty = this.state.translate.y
+    const ro = this.state.rotate
+    const offset = this.state.offset
 
     const transform = `translate(${tx}px, ${ty}px) rotate(${ro + 90}deg) scale(${sf})`
 

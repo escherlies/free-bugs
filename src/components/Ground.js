@@ -7,20 +7,28 @@ class Ground extends Component {
 
   state = {
     scalingFactor: 0.1,
-    selected: []
+    selected: [],
+    frame: 0
   }
 
   componentDidMount() {
     const N = 1 + Math.floor(Math.random() * 8)
     this.setState({
-      selected: _.sampleSize(bugs, 1 )
+      selected: _.sampleSize(bugs, 8 )
     })
+
+    requestAnimationFrame(this.animate)
+  }
+  
+  animate = (t) => {
+    this.setState({
+      frame: this.state.frame+1,
+      t
+    })
+    requestAnimationFrame(this.animate)
   }
 
-
-  render() {
-    console.log('N bugs: %s', this.state.selected.length)
-
+  render() {  
     return (
       <div className="ground" ref={e => this.ground = e}>
         {
@@ -35,6 +43,8 @@ class Ground extends Component {
                 width: this.props.dim.width,
                 height: this.props.dim.height
               }}
+              t={this.state.t}
+              frame={this.state.frame}
             />
           )
         }
