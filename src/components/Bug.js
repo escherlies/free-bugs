@@ -11,12 +11,13 @@ class Bug extends Component {
       x: 0,
       y: 0
     },
-    velocity: Math.random()*200+50,
+    velocity: Math.random() * 200 + 50,
     rotate: Math.random() * 360,
     rotateNext: 0.5,
     timestamp: 0,
     boundary: 100,
-    showInfo: false
+    showInfo: false,
+    isLoading: true
   }
 
   componentWillMount() {
@@ -51,7 +52,9 @@ class Bug extends Component {
 
   setOffset = () => {
     const bug = this.bug
-    setTimeout(() => {
+    console.log(bug.clientHeight)
+
+    const set = () => {
       this.setState({
         offset: {
           x: bug.clientWidth / 2,
@@ -60,9 +63,21 @@ class Bug extends Component {
         boundary:
           bug.clientHeight > bug.clientWidth
             ? bug.clientHeight * this.props.scalingFactor
-            : bug.clientWidth * this.props.scalingFactor
+            : bug.clientWidth * this.props.scalingFactor,
+        isLoading: bug.clientHeight > 18 ? false : true
       })
-    }, 2000)
+    }
+
+    const int = setInterval(() => {
+      set()
+    }, 20)
+
+    setTimeout(() => {
+      this.setState({
+        isLoading: false
+      })
+      clearInterval(int)
+    }, 100)
   }
 
   animate = (t, frame) => {
@@ -132,7 +147,7 @@ class Bug extends Component {
     if (!details) return null
 
     return (
-      <div>
+      <div style={{ visibility: this.state.isLoading ? 'hidden' : 'visible' }}>
         {/* <Name details={details} /> */}
         <div
           ref={elem => (this.bug = elem)}
