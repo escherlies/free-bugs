@@ -10,8 +10,8 @@ import _ from 'lodash'
 class App extends Component {
   state = {
     dim: {
-      width: 0,
-      height: 0
+      width: window.innerWidth,
+      height: window.innerHeight
     },
     selected: {}
   }
@@ -48,7 +48,7 @@ class App extends Component {
     return (
       <div className="App">
         {this.state.dim.width !== 0 ? (
-          <Ground dim={this.state.dim} bugs={selectedBugs} scalingFactor={0.1}/>
+          <Ground dim={this.state.dim} bugs={selectedBugs} scalingFactor={0.5}/>
         ) : (
           'Loading'
         )}

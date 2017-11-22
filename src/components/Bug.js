@@ -34,6 +34,7 @@ class Bug extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // handle window resizing
     const deltaW = this.props.parent.width - nextProps.parent.width
     const deltaH = this.props.parent.height - nextProps.parent.height
 
@@ -55,10 +56,27 @@ class Bug extends Component {
     console.log(bug.clientHeight)
 
     const set = () => {
+
+      // midpoint of self
+      const midpoint = {
+        x: bug.clientWidth / 2,
+        y: bug.clientHeight / 2
+      }
+
+      // spawn somewhere in 80% of window midle
+      const spawn = {
+        x: window.innerWidth*0.1+Math.random()*window.innerWidth*0.8,
+        y: window.innerHeight*0.1+Math.random()*window.innerHeight*0.8
+      }
+
       this.setState({
         offset: {
-          x: bug.clientWidth / 2,
-          y: bug.clientHeight / 2
+          x: midpoint.x,
+          y: midpoint.y
+        },
+        translate: {
+          x: -midpoint.x+spawn.x,
+          y: -midpoint.y+spawn.y
         },
         boundary:
           bug.clientHeight > bug.clientWidth
@@ -69,7 +87,7 @@ class Bug extends Component {
     }
 
     const int = setInterval(() => {
-      set()
+      if (this.state.isLoading) set()
     }, 20)
 
     setTimeout(() => {
@@ -81,6 +99,8 @@ class Bug extends Component {
   }
 
   animate = (t, frame) => {
+    // return
+
     let { offset, boundary, timestamp, rotate, rotateNext, translate } = {
       ...this.state
     }
@@ -160,7 +180,7 @@ class Bug extends Component {
           onTouchEnd={() => this.showInfo(false)}
         >
           <img
-            src={process.env.PUBLIC_URL + '/bugs/' + this.props.details.image}
+            src={process.env.PUBLIC_URL + '/bugsAt20Percent/' + this.props.details.image}
             alt={details.image}
           />
         </div>
