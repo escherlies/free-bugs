@@ -31,9 +31,11 @@ class App extends Component {
     })
   }
 
-  select = id => {
+  select = ids => {
     const selected = { ...this.state.selected }
-    selected[id] ? (selected[id] = false) : (selected[id] = true)
+    _.map(ids, id => {
+      selected[id] ? delete selected[id] : (selected[id] = true)
+    })
     this.setState({
       selected
     })
@@ -48,7 +50,7 @@ class App extends Component {
         <button>Show Dev Tools</button>
 
         {this.state.dim.width !== 0 ? (
-          <Ground dim={this.state.dim} bugs={selectedBugs} />
+          <Ground dim={this.state.dim} bugs={selectedBugs} scalingFactor={0.1}/>
         ) : (
           'Loading'
         )}

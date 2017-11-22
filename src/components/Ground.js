@@ -6,8 +6,6 @@ import bugs  from '../bugs.json'
 class Ground extends Component {
 
   state = {
-    scalingFactor: 0.1,
-    selected: [],
     frame: 0
   }
 
@@ -35,7 +33,7 @@ class Ground extends Component {
           <Bug
             key={i}
             details={e}
-            scalingFactor={this.state.scalingFactor}
+            scalingFactor={this.props.scalingFactor}
             parent={{
               width: this.props.dim.width,
               height: this.props.dim.height
