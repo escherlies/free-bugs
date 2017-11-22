@@ -47,8 +47,6 @@ class App extends Component {
 
     return (
       <div className="App">
-        <button>Show Dev Tools</button>
-
         {this.state.dim.width !== 0 ? (
           <Ground dim={this.state.dim} bugs={selectedBugs} scalingFactor={0.1}/>
         ) : (
