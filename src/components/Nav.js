@@ -12,6 +12,10 @@ class Nav extends Component {
     })
   }
 
+  componentDidMount() {
+    this.selectRandom()
+  }
+
   selectFamily = family => {
     const allSelected = _.keys(this.props.selected)
 
@@ -29,8 +33,16 @@ class Nav extends Component {
     // if non selected, select all
     const toSelect = _.difference(familyBugs, selectedFamilyBugs)
     console.log(toSelect)
-    
+
     return this.props.select(toSelect)
+  }
+
+  selectRandom = () => {
+    const allSelected = _.keys(this.props.selected)
+    const all = _.map(this.props.bugs, e => e.id)
+    const rand = _.sampleSize(all, 8)
+
+    this.props.select(allSelected.concat(rand))
 
   }
 
@@ -49,7 +61,7 @@ class Nav extends Component {
             selectFamily={this.selectFamily}
           />
         ))}
-        <div className="nav-row">
+        <div className="nav-row" onClick={() => this.selectRandom()}>
           <div className="nav-title">SELECT RANDOM</div>
         </div>
       </div>
