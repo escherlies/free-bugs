@@ -1,11 +1,45 @@
 @import url('https://fonts.googleapis.com/css?family=Karla|Libre+Baskerville');
 @import url('https://fonts.googleapis.com/css?family=Karla');
+
 h3 {
   font-family: 'Libre Baskerville', serif;
 }
 
+.nav-row {
+  font-family: 'Libre Baskerville', serif;
+  font-style: italic;
+  font-size: 0.9em;
+}
+
 .bug-description {
+  font-family: 'Libre Baskerville', serif;
+  font-style: italic;
+  font-size: 0.9em;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.333);
+}
+
+.nav {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+
+.nav-title {
+  margin-top: 5px;
+  border-bottom: 1px solid grey;
+  margin-right: 10px;
+  font-variant: small-caps;
+}
+
+.title {
   font-family: 'Karla', sans-serif;
+  font-style: normal;
+  font-size: 1.1em;
+}
+
+.title.german {
+  font-weight: bold;
 }
 
 body {
