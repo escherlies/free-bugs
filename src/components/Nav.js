@@ -53,7 +53,7 @@ const Row = props => {
 }
 
 const Thumbnail = props => {
-  const opacity = props.selected ? 1 : 0.8
+  const opacity = props.selected ? 1 : 0.5
   return (
     <img
       src={process.env.PUBLIC_URL + '/thumbs/' + props.thumbnail}

@@ -5,6 +5,7 @@ import Bug from './components/Bug'
 import Nav from './components/Nav'
 import Ground from './components/Ground'
 import bugs from './bugs.json'
+import _ from 'lodash'
 
 class App extends Component {
   state = {
@@ -36,19 +37,18 @@ class App extends Component {
     this.setState({
       selected
     })
-    console.log(this.state.selected)
   }
 
   render() {
-    console.log(this.state.dim)
-    console.log(this.state.selected)
+    const selectedBugs = _.pick(bugs, _.keys(this.state.selected, e => e))
+    
 
     return (
       <div className="App">
         <button>Show Dev Tools</button>
 
         {this.state.dim.width !== 0 ? (
-          <Ground dim={this.state.dim} selected={this.state.selected} />
+          <Ground dim={this.state.dim} bugs={selectedBugs} />
         ) : (
           'Loading'
         )}

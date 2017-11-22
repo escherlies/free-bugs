@@ -12,10 +12,10 @@ class Ground extends Component {
   }
 
   componentDidMount() {
-    const N = 1 + Math.floor(Math.random() * 8)
-    this.setState({
-      selected: _.sampleSize(bugs, 10 )
-    })
+    // const N = 1 + Math.floor(Math.random() * 8)
+    // this.setState({
+    //   selected: _.sampleSize(bugs, 10 )
+    // })
 
     requestAnimationFrame(this.animate)
   }
@@ -31,7 +31,7 @@ class Ground extends Component {
   render() {  
     return <div className="ground" ref={e => (this.ground = e)}>
 
-        {_.map(this.state.selected, (e, i) => (
+        {_.map(this.props.bugs, (e, i) => (
           <Bug
             key={i}
             details={e}
