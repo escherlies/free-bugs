@@ -77,7 +77,7 @@ class Bug extends Component {
         isLoading: false
       })
       clearInterval(int)
-    }, 100)
+    }, 1000)
   }
 
   animate = (t, frame) => {
