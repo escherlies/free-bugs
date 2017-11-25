@@ -12,6 +12,12 @@ h3 {
   margin-top: 5px;
 }
 
+.thumbnail-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
 .bug-description {
   font-family: 'Libre Baskerville', serif;
   font-style: italic;

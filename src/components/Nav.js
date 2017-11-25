@@ -43,7 +43,6 @@ class Nav extends Component {
     const rand = _.sampleSize(all, 8)
 
     this.props.select(allSelected.concat(rand))
-
   }
 
   render() {
@@ -96,13 +95,17 @@ const Row = props => {
 }
 
 const Thumbnail = props => {
-  const opacity = props.selected ? 1 : 0.5
+  const filter = props.selected
+    ? 'opacity(100%)'
+    : 'saturate(0%) brightness(150%) opacity(50%)'
   return (
-    <img
-      src={process.env.PUBLIC_URL + '/thumbs/' + props.thumbnail}
-      alt={props.thumbnail}
-      style={{ width: 50, cursor: 'pointer', marginRight: '5px', opacity }}
-      onClick={() => props.select([props.id])}
-    />
+    <div style={{ background: 'white', width: 50, height: 50, marginRight: 5 }}>
+      <img
+        src={process.env.PUBLIC_URL + '/thumbs/' + props.thumbnail}
+        alt={props.thumbnail}
+        style={{ width: 50, cursor: 'pointer', marginRight: '5px', filter }}
+        onClick={() => props.select([props.id])}
+      />
+    </div>
   )
 }
