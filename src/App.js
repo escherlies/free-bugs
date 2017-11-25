@@ -48,7 +48,7 @@ class App extends Component {
     return (
       <div className="App">
         {this.state.dim.width !== 0 ? (
-          <Ground dim={this.state.dim} bugs={selectedBugs} scalingFactor={0.5}/>
+          <Ground dim={this.state.dim} bugs={selectedBugs} scalingFactor={0.3}/>
         ) : (
           'Loading'
         )}

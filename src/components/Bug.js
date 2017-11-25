@@ -48,7 +48,7 @@ class Bug extends Component {
       timestamp: nextProps.t
     })
 
-    !this.state.showInfo && this.animate(nextProps.t, nextProps.frame)
+    this.animate(nextProps.t, nextProps.frame)
   }
 
   setOffset = () => {
@@ -56,7 +56,6 @@ class Bug extends Component {
     console.log(bug.clientHeight)
 
     const set = () => {
-
       // midpoint of self
       const midpoint = {
         x: bug.clientWidth / 2,
@@ -65,8 +64,8 @@ class Bug extends Component {
 
       // spawn somewhere in 80% of window midle
       const spawn = {
-        x: window.innerWidth*0.1+Math.random()*window.innerWidth*0.8,
-        y: window.innerHeight*0.1+Math.random()*window.innerHeight*0.8
+        x: window.innerWidth * 0.1 + Math.random() * window.innerWidth * 0.8,
+        y: window.innerHeight * 0.1 + Math.random() * window.innerHeight * 0.8
       }
 
       this.setState({
@@ -75,8 +74,8 @@ class Bug extends Component {
           y: midpoint.y
         },
         translate: {
-          x: -midpoint.x+spawn.x,
-          y: -midpoint.y+spawn.y
+          x: -midpoint.x + spawn.x,
+          y: -midpoint.y + spawn.y
         },
         boundary:
           bug.clientHeight > bug.clientWidth
@@ -100,13 +99,21 @@ class Bug extends Component {
 
   animate = (t, frame) => {
     // return
+    const showInfo = this.state.showInfo
 
     let { offset, boundary, timestamp, rotate, rotateNext, translate } = {
       ...this.state
     }
 
+    if (this.state.showInfo)
+      translate = {
+        x: this.props.mousePosition.x - this.state.offset.x,
+        y: this.props.mousePosition.y - this.state.offset.y
+      }
+
     // velocity [pixel per second]
-    const v = this.state.velocity / 1000 * (t - timestamp)
+    let v = this.state.velocity / 1000 * (t - timestamp)
+    if (showInfo) v = 0
 
     /**
      * Calc vectors and update position
@@ -123,8 +130,8 @@ class Bug extends Component {
     }
 
     // handle direktino
-    const rotationInterval = 30
-    const rotationMax = 20
+    const rotationInterval = showInfo ? 3 : 30
+    const rotationMax = showInfo ? 3 : 20
 
     rotate += rotateNext
 
@@ -150,8 +157,9 @@ class Bug extends Component {
     })
   }
 
-  showInfo = showInfo => {
+  handleMouse = (e, showInfo) => {
     this.setState({ showInfo })
+    console.log(e.target.clientX, e.target.clientY)
   }
 
   render() {
@@ -173,15 +181,25 @@ class Bug extends Component {
           ref={elem => (this.bug = elem)}
           className="bug"
           style={{ transform }}
-          onMouseDown={() => this.showInfo(true)}
-          onMouseUp={() => this.showInfo(false)}
-          onMouseLeave={() => this.showInfo(false)}
-          onTouchStart={() => this.showInfo(true)}
-          onTouchEnd={() => this.showInfo(false)}
+          onMouseDown={e => this.handleMouse(e, true)}
+          onMouseUp={e => this.handleMouse(e, false)}
+          onMouseLeave={e => this.handleMouse(e, false)}
+          onTouchStart={e => this.handleMouse(e, true)}
+          onTouchEnd={e => this.handleMouse(e, false)}
         >
           <img
-            src={process.env.PUBLIC_URL + '/bugsAt20Percent/' + this.props.details.image}
+            src={
+              process.env.PUBLIC_URL +
+              '/bugsAt20Percent/' +
+              this.props.details.image
+            }
             alt={details.image}
+            style={{
+                pointerEvents: "none",
+                userSelect: "none",
+                userDrag: "none",
+            }}
+            onDragStart={e => e.preventDefault()}
           />
         </div>
         {this.state.showInfo && (
@@ -192,8 +210,8 @@ class Bug extends Component {
               left: this.state.boundary / 2,
               top: 0,
               zIndex: 1000,
-              transform: `translate(${tx + this.state.offset.x}px, ${ty +
-                this.state.offset.y -
+              transform: `translate(${tx + offset.x}px, ${ty +
+                offset.y -
                 30}px)`
             }}
           >

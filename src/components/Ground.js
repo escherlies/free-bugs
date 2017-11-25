@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 import Bug from './Bug'
-import bugs  from '../bugs.json'
+import bugs from '../bugs.json'
 
 class Ground extends Component {
-
   state = {
     frame: 0
   }
@@ -17,18 +16,33 @@ class Ground extends Component {
 
     requestAnimationFrame(this.animate)
   }
-  
-  animate = (t) => {
+
+  animate = t => {
     this.setState({
-      frame: this.state.frame+1,
+      frame: this.state.frame + 1,
       t
     })
     requestAnimationFrame(this.animate)
   }
 
-  render() {  
-    return <div className="ground" ref={e => (this.ground = e)}>
+  handleMouseMove = e => {
+    let mousePosition = {
+      x: e.clientX,
+      y: e.clientY
+    }
+    this.setState({ mousePosition })
+    console.log(mousePosition)
+    
+  }
 
+  render() {
+    return (
+      <div
+        className="ground"
+        ref={e => (this.ground = e)}
+        onMouseMove={e => this.handleMouseMove(e)}
+        onMouseDown={e => this.handleMouseMove(e)}
+      >
         {_.map(this.props.bugs, (e, i) => (
           <Bug
             key={i}
@@ -38,12 +52,14 @@ class Ground extends Component {
               width: this.props.dim.width,
               height: this.props.dim.height
             }}
+            mousePosition={this.state.mousePosition}
             t={this.state.t}
             frame={this.state.frame}
           />
         ))}
       </div>
+    )
   }
 }
 
-export default Ground;
+export default Ground
