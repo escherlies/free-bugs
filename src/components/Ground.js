@@ -30,9 +30,7 @@ class Ground extends Component {
       x: e.clientX,
       y: e.clientY
     }
-    this.setState({ mousePosition })
-    console.log(mousePosition)
-    
+    this.setState({ mousePosition })    
   }
 
   render() {

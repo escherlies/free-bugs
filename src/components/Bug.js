@@ -11,11 +11,12 @@ class Bug extends Component {
       x: 0,
       y: 0
     },
-    velocity: Math.random() * 200 + 50,
+    velocity: Math.random() * 100 + 50,
     rotate: Math.random() * 360,
     rotateNext: 0.5,
     timestamp: 0,
     boundary: 100,
+    stop: false,
     showInfo: false,
     isLoading: true
   }
@@ -113,7 +114,22 @@ class Bug extends Component {
 
     // velocity [pixel per second]
     let v = this.state.velocity / 1000 * (t - timestamp)
-    if (showInfo) v = 0
+
+    if (showInfo || this.state.stop) v = 0
+    // handle stopping
+    if (!this.state.stopTimeoutActive) {
+      this.setState({ stopTimeoutActive: true })
+
+      if (this.state.stop) {
+        setTimeout(() => {
+          this.setState({ stop: false, stopTimeoutActive: false })
+        }, Math.floor((Math.random() + 0.5) * 1000))
+      } else {
+        setTimeout(() => {
+          this.setState({ stop: true, stopTimeoutActive: false })
+        }, Math.floor((Math.random() * 5 + 1) * 1000))
+      }
+    }
 
     /**
      * Calc vectors and update position
@@ -159,7 +175,7 @@ class Bug extends Component {
 
   handleMouse = (e, showInfo) => {
     this.setState({ showInfo })
-    console.log(e.target.clientX, e.target.clientY)
+    // console.log(e.target.clientX, e.target.clientY)
   }
 
   render() {
@@ -175,7 +191,14 @@ class Bug extends Component {
     if (!details) return null
 
     return (
-      <div style={{ visibility: this.state.isLoading ? 'hidden' : 'visible' }}>
+      <div
+        style={{
+          visibility: this.state.isLoading ? 'hidden' : 'visible',
+          pointerEvents: 'click',
+          userSelect: 'none',
+          userDrag: 'none'
+        }}
+      >
         {/* <Name details={details} /> */}
         <div
           ref={elem => (this.bug = elem)}
@@ -194,11 +217,6 @@ class Bug extends Component {
               this.props.details.image
             }
             alt={details.image}
-            style={{
-                pointerEvents: "none",
-                userSelect: "none",
-                userDrag: "none",
-            }}
             onDragStart={e => e.preventDefault()}
           />
         </div>
