@@ -13,7 +13,8 @@ class App extends Component {
       width: window.innerWidth,
       height: window.innerHeight
     },
-    selected: {}
+    selected: {},
+    scalingFactor: 0.3
   }
 
   componentDidMount() {
@@ -41,18 +42,35 @@ class App extends Component {
     })
   }
 
+  setScalingFactor = scalingFactor => {
+    
+    let currentScalingFactor = this.state.scalingFactor
+    console.log(scalingFactor, currentScalingFactor)
+    if (scalingFactor === "inc") currentScalingFactor += 0.1
+    if (scalingFactor === 'dec' && currentScalingFactor > 0.1) currentScalingFactor -= 0.1
+    this.setState({ scalingFactor: currentScalingFactor })
+    }
+
   render() {
     const selectedBugs = _.pick(bugs, _.keys(this.state.selected, e => e))
-    
 
     return (
       <div className="App">
         {this.state.dim.width !== 0 ? (
-          <Ground dim={this.state.dim} bugs={selectedBugs} scalingFactor={0.3}/>
+          <Ground
+            dim={this.state.dim}
+            bugs={selectedBugs}
+            scalingFactor={this.state.scalingFactor}
+          />
         ) : (
           'Loading'
         )}
-        <Nav bugs={bugs} select={this.select} selected={this.state.selected} />
+        <Nav
+          bugs={bugs}
+          select={this.select}
+          selected={this.state.selected}
+          setScalingFactor={this.setScalingFactor}
+        />
       </div>
     )
   }

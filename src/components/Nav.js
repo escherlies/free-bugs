@@ -45,6 +45,11 @@ class Nav extends Component {
     this.props.select(allSelected.concat(rand))
   }
 
+  selectAll = () => {
+    const all = _.map(this.props.bugs, e => e.id)
+    this.props.select(all)
+  }
+
   render() {
     // const sample = { '01_A': this.props.bugs['01_A'] }
 
@@ -60,8 +65,18 @@ class Nav extends Component {
             selectFamily={this.selectFamily}
           />
         ))}
-        <div className="nav-row" onClick={() => this.selectRandom()}>
+        <div className="nav-row margin" onClick={() => this.selectRandom()}>
           <div className="nav-title">SELECT RANDOM</div>
+        </div>
+        <div className="nav-row margin" onClick={() => this.selectAll()}>
+          <div className="nav-title">SELECT ALL</div>
+        </div>
+        <div className="nav-row margin">
+          <div className="nav-title"  onClick={() => this.props.setScalingFactor(0.3)}>SCALING</div>
+          <div className="thumbnail-container">
+            <div className="scaling-button" onClick={() => this.props.setScalingFactor('dec')}>-</div>
+            <div className="scaling-button" onClick={() => this.props.setScalingFactor('inc')}>+</div>
+          </div>
         </div>
       </div>
     )
