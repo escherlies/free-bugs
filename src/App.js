@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import './App.css'
-import Bug from './components/Bug'
 import Nav from './components/Nav'
 import Ground from './components/Ground'
 import bugs from './bugs.json'

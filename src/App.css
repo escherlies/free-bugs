@@ -69,6 +69,8 @@ h3 {
   position: absolute;
   left: 10px;
   top: 10px;
+  max-height: calc(100vh - 10px);
+  overflow: scroll;
 }
 
 .nav-title {

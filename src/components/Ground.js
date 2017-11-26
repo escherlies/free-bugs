@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 import Bug from './Bug'
-import bugs from '../bugs.json'
 
 class Ground extends Component {
   state = {

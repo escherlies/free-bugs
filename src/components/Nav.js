@@ -47,8 +47,12 @@ class Nav extends Component {
   }
 
   selectAll = () => {
+    const allSelected = _.keys(this.props.selected)
     const all = _.map(this.props.bugs, e => e.id)
-    this.props.select(all)
+    const diff = _.difference(all, allSelected)
+    console.log(allSelected, all, diff)
+    
+    this.props.select(diff.length > 0 ? diff : all)
   }
 
   render() {
@@ -139,7 +143,9 @@ const Thumbnail = props => {
 const Context = props => {
   return <div className="context">
       <div>
-        Daten: <a href="#">Naturkundemuseum Berlin</a>
+        Daten: <a href="https://www.naturkundemuseum.berlin/">
+          Naturkundemuseum Berlin
+        </a>
       </div>
       <br />
       <div>

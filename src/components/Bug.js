@@ -82,7 +82,7 @@ class Bug extends Component {
           bug.clientHeight > bug.clientWidth
             ? bug.clientHeight * this.props.scalingFactor
             : bug.clientWidth * this.props.scalingFactor,
-        isLoading: bug.clientHeight > 18 ? false : true
+        isLoading: bug.clientHeight > 50 ? false : true
       })
     }
 
