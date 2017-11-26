@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import logo from './logo.svg'
 import './App.css'
 import Bug from './components/Bug'
 import Nav from './components/Nav'
@@ -46,8 +45,9 @@ class App extends Component {
     
     let currentScalingFactor = this.state.scalingFactor
     console.log(scalingFactor, currentScalingFactor)
-    if (scalingFactor === "inc") currentScalingFactor += 0.1
-    if (scalingFactor === 'dec' && currentScalingFactor > 0.1) currentScalingFactor -= 0.1
+    if (scalingFactor === 'inc' && currentScalingFactor < 1.0) currentScalingFactor += 0.1
+    if (scalingFactor === 'dec' && currentScalingFactor > 0.3) currentScalingFactor -= 0.1
+    currentScalingFactor = Number(currentScalingFactor.toFixed(1))
     this.setState({ scalingFactor: currentScalingFactor })
     }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
+import logo from '../logo.png'
 
 class Nav extends Component {
   state = {
@@ -72,12 +73,22 @@ class Nav extends Component {
           <div className="nav-title">SELECT ALL</div>
         </div>
         <div className="nav-row margin">
-          <div className="nav-title"  onClick={() => this.props.setScalingFactor(0.3)}>SCALING</div>
           <div className="thumbnail-container">
-            <div className="scaling-button" onClick={() => this.props.setScalingFactor('dec')}>-</div>
-            <div className="scaling-button" onClick={() => this.props.setScalingFactor('inc')}>+</div>
+            <div
+              className="scaling-button"
+              onClick={() => this.props.setScalingFactor('dec')}
+            >
+              <div className="minus" />
+            </div>
+            <div
+              className="scaling-button"
+              onClick={() => this.props.setScalingFactor('inc')}
+            >
+              <div className="v-minus"> </div> <div className="minus" />
+            </div>
           </div>
         </div>
+        <Context />
       </div>
     )
   }
@@ -114,13 +125,34 @@ const Thumbnail = props => {
     ? 'opacity(100%)'
     : 'saturate(0%) brightness(150%) opacity(50%)'
   return (
-    <div style={{ background: 'white', width: 50, height: 50, marginRight: 5 }}>
+    <div style={{ background: 'white', width: 45, height: 45, marginRight: 5 }}>
       <img
         src={process.env.PUBLIC_URL + '/thumbs/' + props.thumbnail}
         alt={props.thumbnail}
-        style={{ width: 50, cursor: 'pointer', marginRight: '5px', filter }}
+        style={{ width: 45, cursor: 'pointer', marginRight: '10px', filter }}
         onClick={() => props.select([props.id])}
       />
+    </div>
+  )
+}
+
+const Context = props => {
+  return (
+    <div className="context">
+      <div>
+        Daten: <a href="#">Naturkundemuseum Berlin</a>
+      </div>
+      <br />
+      <div>
+        Konzeption/Design:{' '}
+        <a href="http://www.sabine-redlich.de/">Sabine Redlich</a>
+      </div>
+      <div>
+        Programmierung: <a href="#">Enrico Scherlies</a>
+      </div>
+      <a href="https://codingdavinci.de/">
+        <img className="logo" src={logo} alt="" />
+      </a>
     </div>
   )
 }

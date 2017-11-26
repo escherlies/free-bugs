@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Karla|Libre+Baskerville');
+@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville:400i');
 @import url('https://fonts.googleapis.com/css?family=Karla');
 
 h3 {
@@ -8,11 +8,11 @@ h3 {
 .nav-row {
   font-family: 'Libre Baskerville', serif;
   font-style: italic;
-  font-size: 0.9em;
-  margin-top: 7px;
+  font-size: 0.8em;
+  margin-top: 13px;
 }
 .margin {
-  margin-top: 30px;
+  margin-top: 13px;
 }
 
 .thumbnail-container {
@@ -22,11 +22,11 @@ h3 {
 }
 
 .scaling-button {
-  background: rgba(255, 255, 255, 0.705);
-  width: 50px;
-  height: 50px;
+  /* background: rgba(255, 255, 255, 0.705); */
+  width: 45px;
+  height: 45px;
   margin-right: 5px;
-  border: 1px solid;
+  border: 2px solid rgb(98, 99, 98);
   border-radius: 100%;
   display: flex;
   align-content: center;
@@ -36,6 +36,21 @@ h3 {
   font-size: 32;
   font-weight: bold;
   font-style: normal;
+}
+
+.minus {
+  position: absolute;
+  width: 25px;
+  height: 2px;
+  background: rgb(98, 99, 98);
+}
+
+.v-minus {
+  position: absolute;
+  width: 25px;
+  height: 1.5px;
+  background: rgb(98, 99, 98);
+  transform: rotate(90deg);
 }
 
 .scaling-button:hover {
@@ -57,7 +72,7 @@ h3 {
 }
 
 .nav-title {
-  border-bottom: 1px solid grey;
+  border-bottom: 2px solid rgb(98, 99, 98);
   margin-right: 5px;
   font-variant: small-caps;
   cursor: pointer;
@@ -98,4 +113,19 @@ body {
   top: 0px;
   transform-origin: 50% 50%;
   cursor: pointer;
+}
+
+.context {
+  margin-top: 45px;
+  width: 100%;
+  font-size: 0.8em;
+}
+
+.logo {
+  margin-top: 35px;
+  width: 137px;
+}
+
+a {
+  color: #333333;
 }
