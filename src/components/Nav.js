@@ -125,7 +125,7 @@ const Thumbnail = props => {
     ? 'opacity(100%)'
     : 'saturate(0%) brightness(150%) opacity(50%)'
   return (
-    <div style={{ background: 'white', width: 45, height: 45, marginRight: 5 }}>
+    <div style={{ width: 45, height: 45, marginRight: 5, opacity: "50%" }}>
       <img
         src={process.env.PUBLIC_URL + '/thumbs/' + props.thumbnail}
         alt={props.thumbnail}
@@ -137,22 +137,23 @@ const Thumbnail = props => {
 }
 
 const Context = props => {
-  return (
-    <div className="context">
+  return <div className="context">
       <div>
         Daten: <a href="#">Naturkundemuseum Berlin</a>
       </div>
       <br />
       <div>
-        Konzeption/Design:{' '}
-        <a href="http://www.sabine-redlich.de/">Sabine Redlich</a>
+        Konzept/Design: <a href="http://www.sabine-redlich.de/">
+          Sabine Redlich
+        </a>
       </div>
       <div>
-        Programmierung: <a href="#">Enrico Scherlies</a>
+        Programmierung: <a href="https://github.com/enryco">
+          Enrico Scherlies
+        </a>
       </div>
       <a href="https://codingdavinci.de/">
         <img className="logo" src={logo} alt="" />
       </a>
     </div>
-  )
 }

@@ -26,7 +26,7 @@ h3 {
   width: 45px;
   height: 45px;
   margin-right: 5px;
-  border: 2px solid rgb(98, 99, 98);
+  border: 2px solid #20211E;
   border-radius: 100%;
   display: flex;
   align-content: center;
@@ -42,14 +42,14 @@ h3 {
   position: absolute;
   width: 25px;
   height: 2px;
-  background: rgb(98, 99, 98);
+  background: #20211E;
 }
 
 .v-minus {
   position: absolute;
   width: 25px;
   height: 1.5px;
-  background: rgb(98, 99, 98);
+  background: #20211E;
   transform: rotate(90deg);
 }
 
@@ -72,7 +72,7 @@ h3 {
 }
 
 .nav-title {
-  border-bottom: 2px solid rgb(98, 99, 98);
+  border-bottom: 2px solid #20211E;
   margin-right: 5px;
   font-variant: small-caps;
   cursor: pointer;
@@ -90,7 +90,7 @@ h3 {
 
 body {
   overflow: hidden;
-  background: #fffdf2;
+  background: #f2f2f2;
 }
 
 .App {
@@ -117,8 +117,8 @@ body {
 
 .context {
   margin-top: 45px;
-  width: 100%;
   font-size: 0.8em;
+  width:100%;
 }
 
 .logo {
