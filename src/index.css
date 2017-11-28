@@ -4,5 +4,9 @@
 body {
   margin: 0;
   padding: 0;
+  width: 90vw;
+  height: 90vh;
   font-family: 'Karla', sans-serif;
+  overflow: hidden;
+  background: #f2f2f2;
 }

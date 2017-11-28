@@ -4,7 +4,11 @@ import Bug from './Bug'
 
 class Ground extends Component {
   state = {
-    frame: 0
+    frame: 0,
+    mousePosition: {
+      x: 0,
+      y: 0
+    }
   }
 
   componentDidMount() {
@@ -24,12 +28,19 @@ class Ground extends Component {
     requestAnimationFrame(this.animate)
   }
 
-  handleMouseMove = e => {
+  handleMouseMove = (e, eventDesc) => {
+    e.preventDefault()
+    
+    if (eventDesc === "touchStart") e = e.touches[0]
+    if (eventDesc === "touchMove") e = e.changedTouches[0]
+    
     let mousePosition = {
       x: e.clientX,
       y: e.clientY
     }
     this.setState({ mousePosition })    
+    console.log()
+    
   }
 
   render() {
@@ -37,10 +48,12 @@ class Ground extends Component {
       <div
         className="ground"
         ref={e => (this.ground = e)}
-        onMouseMove={e => this.handleMouseMove(e)}
-        onMouseDown={e => this.handleMouseMove(e)}
+        onMouseDown={e => this.handleMouseMove(e, "mouse")}
+        onMouseMove={e => this.handleMouseMove(e, "mouse")}
+        onTouchStart={e => this.handleMouseMove(e, "touchStart")}
+        onTouchMove={e => this.handleMouseMove(e, "touchMove")}
       >
-        {_.map(this.props.bugs, (e, i) => (
+        {true && _.map(this.props.bugs, (e, i) => (
           <Bug
             key={i}
             details={e}

@@ -28,6 +28,7 @@ class App extends Component {
     this.setState({
       dim: { width: window.innerWidth, height: window.innerHeight }
     })
+    console.log(window.innerWidth, window.innerHeight)
   }
 
   select = ids => {
@@ -41,20 +42,26 @@ class App extends Component {
   }
 
   setScalingFactor = scalingFactor => {
-    
     let currentScalingFactor = this.state.scalingFactor
     console.log(scalingFactor, currentScalingFactor)
-    if (scalingFactor === 'inc' && currentScalingFactor < 1.0) currentScalingFactor += 0.1
-    if (scalingFactor === 'dec' && currentScalingFactor > 0.3) currentScalingFactor -= 0.1
+    if (scalingFactor === 'inc' && currentScalingFactor < 1.0)
+      currentScalingFactor += 0.1
+    if (scalingFactor === 'dec' && currentScalingFactor > 0.3)
+      currentScalingFactor -= 0.1
     currentScalingFactor = Number(currentScalingFactor.toFixed(1))
     this.setState({ scalingFactor: currentScalingFactor })
-    }
+  }
+
+  handleTouch = e => {
+    // if (e.target.getAttribute('class') === 'ground') e.preventDefault()
+    console.log(e.target.getAttribute('class'))
+  }
 
   render() {
     const selectedBugs = _.pick(bugs, _.keys(this.state.selected, e => e))
 
     return (
-      <div className="App">
+      <div className="App" onTouchMove={e => this.handleTouch(e)}>
         {this.state.dim.width !== 0 ? (
           <Ground
             dim={this.state.dim}
