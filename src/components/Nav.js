@@ -4,7 +4,8 @@ import logo from '../logo.png'
 
 class Nav extends Component {
   state = {
-    families: []
+    families: [],
+    showMenu: window.innerWidth > 425 ? true : false
   }
 
   componentWillMount() {
@@ -51,8 +52,14 @@ class Nav extends Component {
     const all = _.map(this.props.bugs, e => e.id)
     const diff = _.difference(all, allSelected)
     console.log(allSelected, all, diff)
-    
+
     this.props.select(diff.length > 0 ? diff : all)
+  }
+
+  showMenu = () => {
+    this.setState({
+      showMenu: this.state.showMenu ? false : true
+    })
   }
 
   render() {
@@ -60,39 +67,49 @@ class Nav extends Component {
 
     return (
       <div className="nav" style={{ transform: 'scale(1)' }}>
-        {_.map(this.state.families, (family, i) => (
-          <Row
-            key={i}
-            bugs={_.filter(this.props.bugs, { family })}
-            family={family}
-            selected={this.props.selected}
-            select={this.props.select}
-            selectFamily={this.selectFamily}
-          />
-        ))}
-        <div className="nav-row margin" onClick={() => this.selectRandom()}>
-          <div className="nav-title">SELECT RANDOM</div>
-        </div>
-        <div className="nav-row margin" onClick={() => this.selectAll()}>
-          <div className="nav-title">SELECT ALL</div>
-        </div>
-        <div className="nav-row margin">
-          <div className="thumbnail-container">
-            <div
-              className="scaling-button"
-              onClick={() => this.props.setScalingFactor('dec')}
-            >
-              <div className="minus" />
-            </div>
-            <div
-              className="scaling-button"
-              onClick={() => this.props.setScalingFactor('inc')}
-            >
-              <div className="v-minus"> </div> <div className="minus" />
-            </div>
+        <div className="nav-row margin" onClick={() => this.showMenu()}>
+          <div className="nav-title">
+            {' '}
+            <i className={`fa fa-chevron-${this.state.showMenu ? 'down' : 'right'}`} /> MENU
           </div>
         </div>
-        <Context />
+        {this.state.showMenu && (
+          <div>
+            {_.map(this.state.families, (family, i) => (
+              <Row
+                key={i}
+                bugs={_.filter(this.props.bugs, { family })}
+                family={family}
+                selected={this.props.selected}
+                select={this.props.select}
+                selectFamily={this.selectFamily}
+              />
+            ))}
+            <div className="nav-row margin" onClick={() => this.selectRandom()}>
+              <div className="nav-title">SELECT RANDOM</div>
+            </div>
+            <div className="nav-row margin" onClick={() => this.selectAll()}>
+              <div className="nav-title">SELECT ALL</div>
+            </div>
+            <div className="nav-row margin">
+              <div className="thumbnail-container">
+                <div
+                  className="scaling-button"
+                  onClick={() => this.props.setScalingFactor('dec')}
+                >
+                  <div className="minus" />
+                </div>
+                <div
+                  className="scaling-button"
+                  onClick={() => this.props.setScalingFactor('inc')}
+                >
+                  <div className="v-minus"> </div> <div className="minus" />
+                </div>
+              </div>
+            </div>
+            <Context />
+          </div>
+        )}
       </div>
     )
   }
@@ -129,7 +146,7 @@ const Thumbnail = props => {
     ? 'opacity(100%)'
     : 'saturate(0%) brightness(150%) opacity(50%)'
   return (
-    <div style={{ width: 45, height: 45, marginRight: 5, opacity: "50%" }}>
+    <div style={{ width: 45, height: 45, marginRight: 5, opacity: '50%' }}>
       <img
         src={process.env.PUBLIC_URL + '/thumbs/' + props.thumbnail}
         alt={props.thumbnail}
@@ -141,25 +158,25 @@ const Thumbnail = props => {
 }
 
 const Context = props => {
-  return <div className="context">
+  return (
+    <div className="context">
       <div>
-        Daten: <a href="https://www.naturkundemuseum.berlin/">
+        Daten:{' '}
+        <a href="https://www.naturkundemuseum.berlin/">
           Naturkundemuseum Berlin
         </a>
       </div>
       <br />
       <div>
-        Konzept/Design: <a href="http://www.sabine-redlich.de/">
-          Sabine Redlich
-        </a>
+        Konzept/Design:{' '}
+        <a href="http://www.sabine-redlich.de/">Sabine Redlich</a>
       </div>
       <div>
-        Programmierung: <a href="https://github.com/enryco">
-          Enrico Scherlies
-        </a>
+        Programmierung: <a href="https://github.com/enryco">Enrico Scherlies</a>
       </div>
       <a href="https://codingdavinci.de/">
         <img className="logo" src={logo} alt="" />
       </a>
     </div>
+  )
 }
