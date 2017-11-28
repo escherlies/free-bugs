@@ -75,7 +75,7 @@ h3 {
   left: 10px;
   top: 10px;
   max-height: calc(100vh - 10px);
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 

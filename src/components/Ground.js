@@ -30,17 +30,16 @@ class Ground extends Component {
 
   handleMouseMove = (e, eventDesc) => {
     e.preventDefault()
-    
-    if (eventDesc === "touchStart") e = e.touches[0]
-    if (eventDesc === "touchMove") e = e.changedTouches[0]
-    
+
+    if (eventDesc === 'touchStart') e = e.touches[0]
+    if (eventDesc === 'touchMove') e = e.changedTouches[0]
+
     let mousePosition = {
       x: e.clientX,
       y: e.clientY
     }
-    this.setState({ mousePosition })    
-    console.log()
-    
+    this.setState({ mousePosition })
+    console.log(mousePosition)
   }
 
   render() {
@@ -48,25 +47,25 @@ class Ground extends Component {
       <div
         className="ground"
         ref={e => (this.ground = e)}
-        onMouseDown={e => this.handleMouseMove(e, "mouse")}
-        onMouseMove={e => this.handleMouseMove(e, "mouse")}
-        onTouchStart={e => this.handleMouseMove(e, "touchStart")}
-        onTouchMove={e => this.handleMouseMove(e, "touchMove")}
+        onMouseMove={e => this.handleMouseMove(e, 'mouse')}
+        onTouchStart={e => this.handleMouseMove(e, 'touchStart')}
+        onTouchMove={e => this.handleMouseMove(e, 'touchMove')}
       >
-        {true && _.map(this.props.bugs, (e, i) => (
-          <Bug
-            key={i}
-            details={e}
-            scalingFactor={this.props.scalingFactor}
-            parent={{
-              width: this.props.dim.width,
-              height: this.props.dim.height
-            }}
-            mousePosition={this.state.mousePosition}
-            t={this.state.t}
-            frame={this.state.frame}
-          />
-        ))}
+        {true &&
+          _.map(this.props.bugs, (e, i) => (
+            <Bug
+              key={i}
+              details={e}
+              scalingFactor={this.props.scalingFactor}
+              parent={{
+                width: this.props.dim.width,
+                height: this.props.dim.height
+              }}
+              mousePosition={this.state.mousePosition}
+              t={this.state.t}
+              frame={this.state.frame}
+            />
+          ))}
       </div>
     )
   }

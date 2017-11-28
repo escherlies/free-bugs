@@ -40,13 +40,21 @@ class Bug extends Component {
     const deltaH = this.props.parent.height - nextProps.parent.height
 
     const translate = { ...this.state.translate }
+    let boundary = this.state.boundary
+
+    if (this.props.scalingFactor !== nextProps.scalingFactor) {
+      boundary = this.bug.clientHeight > this.bug.clientWidth
+          ? this.bug.clientHeight * nextProps.scalingFactor
+          : this.bug.clientWidth * nextProps.scalingFactor
+    }
 
     this.setState({
       translate: {
         x: translate.x - deltaW,
         y: translate.y - deltaH
       },
-      timestamp: nextProps.t
+      timestamp: nextProps.t,
+      boundary
     })
 
     this.animate(nextProps.t, nextProps.frame)
@@ -174,6 +182,7 @@ class Bug extends Component {
   }
 
   handleMouse = (e, showInfo) => {
+    e.preventDefault()
     this.setState({ showInfo })
     // console.log(e.target.clientX, e.target.clientY)
   }
@@ -205,6 +214,7 @@ class Bug extends Component {
           className="bug"
           style={{ transform }}
           onMouseDown={e => this.handleMouse(e, true)}
+          onMouseClick={e => this.handleMouse(e, true)}
           onMouseUp={e => this.handleMouse(e, false)}
           onMouseLeave={e => this.handleMouse(e, false)}
           onTouchStart={e => this.handleMouse(e, true)}
@@ -225,8 +235,8 @@ class Bug extends Component {
             className="bug-description-container"
             style={{
               position: 'absolute',
-              left: this.state.boundary / 2,
-              top: 0,
+              left: -171/2,
+              top: -168,
               zIndex: 1000,
               transform: `translate(${tx + offset.x}px, ${ty +
                 offset.y -
