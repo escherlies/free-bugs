@@ -62,7 +62,6 @@ class Bug extends Component {
 
   setOffset = () => {
     const bug = this.bug
-    console.log(bug.clientHeight)
 
     const set = () => {
       // midpoint of self

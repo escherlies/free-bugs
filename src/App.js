@@ -28,7 +28,6 @@ class App extends Component {
     this.setState({
       dim: { width: window.innerWidth, height: window.innerHeight }
     })
-    console.log(window.innerWidth, window.innerHeight)
   }
 
   select = ids => {
@@ -43,7 +42,6 @@ class App extends Component {
 
   setScalingFactor = scalingFactor => {
     let currentScalingFactor = this.state.scalingFactor
-    console.log(scalingFactor, currentScalingFactor)
     if (scalingFactor === 'inc' && currentScalingFactor < 1.0)
       currentScalingFactor += 0.1
     if (scalingFactor === 'dec' && currentScalingFactor > 0.3)
@@ -54,7 +52,6 @@ class App extends Component {
 
   handleTouch = e => {
     // if (e.target.getAttribute('class') === 'ground') e.preventDefault()
-    console.log(e.target.getAttribute('class'))
   }
 
   render() {

@@ -2,7 +2,7 @@
   "name": "free-bugs",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://enricoscherlies.de/freeBugs",
+  "homepage": "https://enricoscherlies.com/free-bugs",
   "dependencies": {
     "lodash": "^4.17.4",
     "react": "^16.1.1",

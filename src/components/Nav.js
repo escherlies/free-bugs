@@ -34,7 +34,6 @@ class Nav extends Component {
 
     // if non selected, select all
     const toSelect = _.difference(familyBugs, selectedFamilyBugs)
-    console.log(toSelect)
 
     return this.props.select(toSelect)
   }
@@ -51,7 +50,6 @@ class Nav extends Component {
     const allSelected = _.keys(this.props.selected)
     const all = _.map(this.props.bugs, e => e.id)
     const diff = _.difference(all, allSelected)
-    console.log(allSelected, all, diff)
 
     this.props.select(diff.length > 0 ? diff : all)
   }

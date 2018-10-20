@@ -39,7 +39,6 @@ class Ground extends Component {
       y: e.clientY
     }
     this.setState({ mousePosition })
-    console.log(mousePosition)
   }
 
   render() {
