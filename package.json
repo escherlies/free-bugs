@@ -2,7 +2,7 @@
   "name": "free-bugs",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://enryco.github.com/free-bugs/",
+  "homepage": "https://enryco.github.io/free-bugs/",
   "dependencies": {
     "lodash": "^4.17.11",
     "react": "^16.1.1",
