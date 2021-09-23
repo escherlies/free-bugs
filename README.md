@@ -1,6 +1,6 @@
 # Free Bugs!
 
-Live Demo: https://enryco.github.io/free-bugs/
+Live Demo: https://escherlies.github.io/free-bugs/
 
 License: MIT
 
